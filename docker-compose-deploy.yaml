@@ -4,3 +4,10 @@ services:
     ports:
       - 8080:8080
       - 2222:22
+    volumes:
+      - work:/work
+      - config:/root/.config/code-server
+
+volumes:
+  work:
+  config:
