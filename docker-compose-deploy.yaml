@@ -1,0 +1,6 @@
+services:
+  web:
+    image: dnviti/anaconda-vscode:latest
+    ports:
+      - 8080:8080
+      - 2222:22

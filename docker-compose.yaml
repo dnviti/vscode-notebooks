@@ -1,0 +1,13 @@
+services:
+  web:
+    image: dnviti/anaconda-vscode:latest
+    ports:
+      - 8080:8080
+      - 2222:22
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - SSH_KEY=${SSH_KEY_CONTENT}
+        - SSH_USER=${SSH_USER}
+        - SSH_PASSWORD=${SSH_PASSWORD}
