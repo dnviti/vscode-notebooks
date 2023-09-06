@@ -1,6 +1,6 @@
 ### Python Anaconda + .NET 7 + VSCode Server + SSH
 
-Example Prebuilt Docker Image: [anaconda-vscode](https://hub.docker.com/r/dnviti/anaconda-vscode)
+Prebuilt Docker Image: [anaconda-vscode](https://hub.docker.com/r/dnviti/anaconda-vscode)
 
 Create a .key file with your SSH Public Key inside
 
