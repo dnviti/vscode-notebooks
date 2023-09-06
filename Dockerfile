@@ -1,9 +1,17 @@
 # Use the latest Ubuntu image as the base
 FROM ubuntu:latest
 
+USER root
+
 # Update the system and install necessary packages
 RUN apt-get update && \
-    apt-get install -y wget curl bzip2 openssh-server python3-venv python-is-python3 git
+    apt-get install -y wget curl bzip2 openssh-server python3-venv python-is-python3 git sudo
+
+# Configure SSH
+RUN mkdir /var/run/sshd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
+    echo "export VISIBLE=now" >> /etc/profile
 
 # Install dotnet-sdk for polyglot notebook
 RUN wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
@@ -24,32 +32,20 @@ ENV PATH /opt/conda/bin:$PATH
 # Install code-server
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
-# Configure SSH
-RUN mkdir /var/run/sshd && \
-    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
-    sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
-    echo "export VISIBLE=now" >> /etc/profile
-
-# Set environment variables for SSH user and password
-ENV SSH_USER vscode
-ENV SSH_PASSWORD vscode
-RUN useradd -m -s /bin/bash ${SSH_USER} && \
-    echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
-
-# Set environment variable for SSH key
-ENV SSH_KEY -
-RUN mkdir -p /home/${SSH_USER}/.ssh && \
-    echo "${SSH_KEY}" > /home/${SSH_USER}/.ssh/id_rsa && \
-    chown ${SSH_USER}:${SSH_USER} /home/${SSH_USER}/.ssh/id_rsa && \
-    chmod 600 /home/${SSH_USER}/.ssh/id_rsa
-
 # Create the /work directory and set permissions
 RUN mkdir /work
-RUN chmod 777 /work
+RUN chmod 777 /work -R
+
+COPY start.sh /usr/sbin/start.sh
+RUN chmod +x /usr/sbin/start.sh
+
+# Set environment variables for SSH user and password
+ENV SSH_USERNAME vscode
+ENV SSH_PASSWORD changeme
+ENV PASSWORD changeme
 
 # Expose code-server and SSH ports
 EXPOSE 8080 22
 
 # Start code-server and SSH server
-CMD sh -c '/usr/sbin/sshd -D & /usr/bin/code-server --bind-addr 0.0.0.0:8080 --auth none /work & wait'
-
+CMD sh -c '/usr/sbin/start.sh ${PASSWORD}'

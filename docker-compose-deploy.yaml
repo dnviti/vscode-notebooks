@@ -4,10 +4,17 @@ services:
     ports:
       - 8080:8080
       - 2222:22
+    environment:
+      - SSH_USERNAME=${SSH_USERNAME}
+      - SSH_PASSWORD=${SSH_PASSWORD}
+      - SSH_KEY=${SSH_KEY_CONTENT}
+      - PASSWORD=${PASSWORD} # vscode access password
     volumes:
       - work:/work
-      - config:/root/.config/code-server
+      - config:/home/${SSH_USERNAME}/.config/code-server
+      - data:/home/${SSH_USERNAME}/.local/share/code-server
 
 volumes:
   work:
   config:
+  data:
