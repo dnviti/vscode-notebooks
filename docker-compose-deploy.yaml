@@ -13,8 +13,10 @@ services:
       - work:/work
       - config:/home/${SSH_USERNAME}/.config/code-server
       - data:/home/${SSH_USERNAME}/.local/share/code-server
+      - ssh:/home/vscode/.ssh
 
 volumes:
   work:
   config:
   data:
+  ssh:
