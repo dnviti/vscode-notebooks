@@ -1,14 +1,11 @@
 services:
   web:
-    image: dnviti/anaconda-vscode:latest
+    image: ghcr.io/dnviti/vscode-notebooks:latest
     ports:
       - 8080:8080
       - 2222:22
-    environment:
-      - SSH_USERNAME=${SSH_USERNAME}
-      - SSH_PASSWORD=${SSH_PASSWORD}
-      - SSH_KEY=${SSH_KEY_CONTENT}
-      - PASSWORD=${PASSWORD} # vscode access password
-    build:
-      context: .
-      dockerfile: Dockerfile
+    volumes:
+      - ./work:/work
+      - ./config:/home/${SSH_USERNAME}/.config/code-server
+      - ./data:/home/${SSH_USERNAME}/.local/share/code-server
+      - ./ssh:/home/vscode/.ssh

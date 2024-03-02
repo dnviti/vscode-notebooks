@@ -29,4 +29,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/anaconda-vscode:latest
+        tags: ghcr.io/${{ github.repository_owner }}/vscode-notebooks:latest

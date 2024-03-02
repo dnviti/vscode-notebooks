@@ -4,6 +4,7 @@
 sudo useradd -m -s /bin/bash $SSH_USERNAME
 sudo echo "${SSH_USERNAME}:${SSH_USERNAME}" | chpasswd
 sudo adduser $SSH_USERNAME sudo
+sudo usermod -aG sudo $SSH_USERNAME
 
 # Set ssh key
 mkdir -p /home/$SSH_USERNAME/.ssh

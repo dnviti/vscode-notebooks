@@ -20,15 +20,6 @@ RUN wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/package
     apt-get update && \
     apt-get install -y dotnet-sdk-8.0
 
-# Install the latest version of Anaconda
-RUN latest=$(wget -qO- https://repo.anaconda.com/archive/ | grep -Eo "(href=\")(Anaconda3-.*-Linux-x86_64.sh)*\"" | sed 's/href=//g' | sed 's/\"//g' | head -n 1); wget "https://repo.anaconda.com/archive/$latest" -O ~/anaconda.sh && \
-    bash ~/anaconda.sh -b -p /opt/conda && \
-    rm ~/anaconda.sh && \
-    /opt/conda/bin/conda clean --all
-
-# Set environment variables for Anaconda
-ENV PATH /opt/conda/bin:$PATH
-
 # Install code-server
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
