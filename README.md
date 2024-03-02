@@ -1,4 +1,4 @@
-### Python Anaconda + .NET 7 + VSCode Server + SSH
+### Python Anaconda + .NET 8 + VSCode Server + SSH
 
 Prebuilt Docker Image: [anaconda-vscode](https://hub.docker.com/r/dnviti/anaconda-vscode)
 
