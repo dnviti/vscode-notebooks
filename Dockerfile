@@ -5,7 +5,7 @@ USER root
 
 # Update the system and install necessary packages
 RUN apt-get update && \
-    apt-get install -y wget curl bzip2 openssh-server python3-venv python-is-python3 git sudo
+    apt-get install -y wget curl bzip2 openssh-server python3-pip python3-venv python-is-python3 git sudo
 
 # Configure SSH
 RUN mkdir /var/run/sshd && \
