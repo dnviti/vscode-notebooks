@@ -1,6 +1,4 @@
-### Python Anaconda + .NET 8 + VSCode Server + SSH
-
-Prebuilt Docker Image: [anaconda-vscode](https://hub.docker.com/r/dnviti/anaconda-vscode)
+### Python + .NET 8 + VSCode Server + SSH
 
 Create a .key file with your SSH Public Key inside
 
