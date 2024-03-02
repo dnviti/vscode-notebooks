@@ -18,7 +18,7 @@ RUN wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/package
     dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb && \
     apt-get update && \
-    apt-get install -y dotnet-sdk-7.0
+    apt-get install -y dotnet-sdk-8.0
 
 # Install the latest version of Anaconda
 RUN latest=$(wget -qO- https://repo.anaconda.com/archive/ | grep -Eo "(href=\")(Anaconda3-.*-Linux-x86_64.sh)*\"" | sed 's/href=//g' | sed 's/\"//g' | head -n 1); wget "https://repo.anaconda.com/archive/$latest" -O ~/anaconda.sh && \
